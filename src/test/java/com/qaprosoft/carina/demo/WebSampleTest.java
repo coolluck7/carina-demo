@@ -17,10 +17,8 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
-import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -30,14 +28,11 @@ import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
-import com.qaprosoft.carina.demo.gui.pages.BrandModelsPage;
-import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
-import com.qaprosoft.carina.demo.gui.pages.HomePage;
-import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
-import com.qaprosoft.carina.demo.gui.pages.NewsPage;
+import com.qaprosoft.carina.demo.gui.pages.*;
 import com.zebrunner.agent.core.annotation.TestLabel;
 
 /**
@@ -72,7 +67,6 @@ public class WebSampleTest implements IAbstractTest {
         softAssert.assertEquals(productInfoPage.readBattery(), "4500mAh", "Invalid battery info!");
         softAssert.assertAll();
     }
-
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
@@ -131,8 +125,7 @@ public class WebSampleTest implements IAbstractTest {
 
         homePage.clickLoginButton();
         LoginPopUp loginPopUp = new LoginPopUp(getDriver());
-        loginPopUp.useCredentials();
-        loginPopUp.clickLoginButton();
+        loginPopUp.loginViaCredentials();
     }
 
     @Test()
@@ -144,6 +137,6 @@ public class WebSampleTest implements IAbstractTest {
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
-        Assert.assertFalse(homePage.isElementNotPresent(homePage.getSignUpButton()), "SignUp button isn't available.");
+        Assert.assertTrue(homePage.isSignUpButtonAvailable(), "SignUp button isn't available.");
     }
 }

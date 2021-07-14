@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
+import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -42,6 +43,20 @@ public class HomePage extends AbstractPage {
 
     @FindBy(className = "news-column-index")
     private ExtendedWebElement newsColumn;
+
+//    @FindBy(id = "login-pop-up")
+//    private LoginPopUp loginPopUp;
+
+    @FindBy(xpath = "//a[@id='login-active']")
+    private ExtendedWebElement loginButton;
+
+    public void clickLoginButton() {
+        loginButton.click();
+    }
+
+    public void loginUsingCredentials() {
+
+    }
 
     public HomePage(WebDriver driver) {
         super(driver);

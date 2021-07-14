@@ -17,14 +17,15 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
+import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.zebrunner.agent.core.annotation.TestLabel;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
@@ -37,6 +38,7 @@ import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
 import com.qaprosoft.carina.demo.gui.pages.HomePage;
 import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
 import com.qaprosoft.carina.demo.gui.pages.NewsPage;
+import com.zebrunner.agent.core.annotation.TestLabel;
 
 /**
  * This sample shows how create Web test.
@@ -116,6 +118,27 @@ public class WebSampleTest implements IAbstractTest {
                     "Invalid search results for " + n.readTitle());
         }
         softAssert.assertAll();
+    }
+
+    @Test()
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P6)
+    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    public void testLoginButton() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        homePage.clickLoginButton();
+
+        LoginPopUp loginPopUp = new LoginPopUp(getDriver());
+        loginPopUp.useCredentials();
+        loginPopUp.clickLoginButton();
+
+
+
+
+
     }
 
 }

@@ -130,15 +130,20 @@ public class WebSampleTest implements IAbstractTest {
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
         homePage.clickLoginButton();
-
         LoginPopUp loginPopUp = new LoginPopUp(getDriver());
         loginPopUp.useCredentials();
         loginPopUp.clickLoginButton();
-
-
-
-
-
     }
 
+    @Test()
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P6)
+    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    public void isSignUpButtonActive() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        Assert.assertFalse(homePage.isElementNotPresent(homePage.getSignUpButton()), "SignUp button isn't available.");
+    }
 }

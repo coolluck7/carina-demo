@@ -34,6 +34,4 @@ public class LoginPopUp extends AbstractUIObject {
     public void clickLoginButton() {
         loginButton.click();
     }
-
-
 }

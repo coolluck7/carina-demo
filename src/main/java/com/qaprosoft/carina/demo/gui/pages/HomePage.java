@@ -44,18 +44,18 @@ public class HomePage extends AbstractPage {
     @FindBy(className = "news-column-index")
     private ExtendedWebElement newsColumn;
 
-//    @FindBy(id = "login-pop-up")
-//    private LoginPopUp loginPopUp;
-
     @FindBy(xpath = "//a[@id='login-active']")
     private ExtendedWebElement loginButton;
+
+    @FindBy(xpath = "//a[@class='signup-icon no-margin-right']")
+    private ExtendedWebElement signUpButton;
 
     public void clickLoginButton() {
         loginButton.click();
     }
 
-    public void loginUsingCredentials() {
-
+    public ExtendedWebElement getSignUpButton() {
+        return signUpButton;
     }
 
     public HomePage(WebDriver driver) {

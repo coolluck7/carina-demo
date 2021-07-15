@@ -122,9 +122,8 @@ public class WebSampleTest implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-
         homePage.clickLoginButton();
-        LoginPopUp loginPopUp = new LoginPopUp(getDriver());
+        LoginPopUp loginPopUp = homePage.getLoginPopUp();
         loginPopUp.loginViaCredentials();
     }
 
@@ -136,7 +135,6 @@ public class WebSampleTest implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-
         Assert.assertTrue(homePage.isSignUpButtonAvailable(), "SignUp button isn't available.");
     }
 }

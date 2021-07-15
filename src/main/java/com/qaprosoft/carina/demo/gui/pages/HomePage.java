@@ -28,8 +28,8 @@ import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import com.qaprosoft.carina.demo.gui.components.WeValuePrivacyAd;
-import org.testng.Assert;
 
 public class HomePage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -48,6 +48,13 @@ public class HomePage extends AbstractPage {
 
     @FindBy(xpath = "//a[@class='signup-icon no-margin-right']")
     private ExtendedWebElement signUpButton;
+
+    @FindBy(xpath = "//span[@id='login-popup2']")
+    private LoginPopUp loginPopUp;
+
+    public LoginPopUp getLoginPopUp() {
+        return loginPopUp;
+    }
 
     public void clickLoginButton() {
         loginButton.click();

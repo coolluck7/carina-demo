@@ -9,7 +9,7 @@ import com.qaprosoft.carina.core.gui.AbstractUIObject;
 public class HeaderItem extends AbstractUIObject {
 
     @FindBy(xpath = "//button[@class='lines-button minus focused']")
-    private ExtendedWebElement linesButton;
+    private ExtendedWebElement menuButton;
 
     @FindBy(xpath = "//input[@name='sSearch']")
     private ExtendedWebElement searchTextBox;
@@ -30,9 +30,41 @@ public class HeaderItem extends AbstractUIObject {
     private ExtendedWebElement youtubeButton;
 
     @FindBy(xpath = "//i[@class='head-icon icon-soc-rss2 icomoon-liga']")
-    private ExtendedWebElement RSSButton;
+    private ExtendedWebElement RssButton;
 
     public HeaderItem(WebDriver driver) {
         super(driver);
+    }
+
+    public boolean isMenuButtonPresent() {
+        return menuButton.isElementPresent();
+    }
+
+    public boolean isSearchTextBoxPresent() {
+        return searchTextBox.isElementPresent();
+    }
+
+    public boolean isTipsButtonPresent() {
+        return tipsButton.isElementPresent();
+    }
+
+    public boolean isfacebookButtonPresent() {
+        return facebookButton.isElementPresent();
+    }
+
+    public boolean isTwitterButtonPresent() {
+        return twitterButton.isElementPresent();
+    }
+
+    public boolean isInstagramButtonPresent() {
+        return instagramButton.isElementPresent();
+    }
+
+    public boolean isYoutubeButtonPresent() {
+        return youtubeButton.isElementPresent();
+    }
+
+    public boolean isRssButtonPresent() {
+        return RssButton.isElementPresent();
     }
 }

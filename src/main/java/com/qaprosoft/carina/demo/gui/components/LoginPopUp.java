@@ -12,10 +12,10 @@ import com.qaprosoft.carina.demo.gui.pages.HomePage;
 public class LoginPopUp extends AbstractUIObject {
 
     @FindBy(xpath = "//input[@id='email']")
-    private ExtendedWebElement userEmail;
+    private ExtendedWebElement userEmailField;
 
     @FindBy(xpath = "//input[@id='upass']")
-    private ExtendedWebElement userPassword;
+    private ExtendedWebElement userPasswordField;
 
     @FindBy(xpath = "//input[@id='nick-submit']")
     private ExtendedWebElement loginButton;
@@ -29,9 +29,21 @@ public class LoginPopUp extends AbstractUIObject {
     }
 
     public HomePage loginViaCredentials() {
-        userEmail.type(R.TESTDATA.get("email"));
-        userPassword.type(R.TESTDATA.get("password"));
+        userEmailField.type(R.TESTDATA.get("email"));
+        userPasswordField.type(R.TESTDATA.get("password"));
         loginButton.click();
         return new HomePage(driver);
+    }
+
+    public boolean isUserEmailFieldPresent() {
+        return userEmailField.isElementPresent();
+    }
+
+    public boolean isUserPasswordFieldPresent() {
+        return userPasswordField.isElementPresent();
+    }
+
+    public boolean isLoginButtonPresent() {
+        return loginButton.isElementPresent();
     }
 }

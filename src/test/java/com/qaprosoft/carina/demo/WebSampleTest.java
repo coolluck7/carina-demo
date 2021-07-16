@@ -17,6 +17,7 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
@@ -118,12 +119,16 @@ public class WebSampleTest implements IAbstractTest {
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P6)
     @TestLabel(name = "feature", value = {"web", "acceptance"})
-    public void testLoginButton() {
+    public void testLogin() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        homePage.clickLoginButton();
+
+        HeaderItem headerItem = homePage.getHeaderItem();
+        Assert.assertTrue(headerItem.isLogInButtonPresent(), "Header login button not found!");
+        headerItem.clickLogInButton();
         LoginPopUp loginPopUp = homePage.getLoginPopUp();
+        Assert.assertTrue(loginPopUp.isLoginButtonPresent(), "Login pop-up login button not found!");
         loginPopUp.loginViaCredentials();
     }
 
@@ -135,6 +140,7 @@ public class WebSampleTest implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        Assert.assertTrue(homePage.isSignUpButtonAvailable(), "SignUp button isn't available.");
+        HeaderItem headerItem = homePage.getHeaderItem();
+        Assert.assertTrue(headerItem.isSignUpButtonPresent(), "Sign up button not found!");
     }
 }

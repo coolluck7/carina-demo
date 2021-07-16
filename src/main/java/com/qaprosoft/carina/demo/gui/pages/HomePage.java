@@ -18,6 +18,7 @@ package com.qaprosoft.carina.demo.gui.pages;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -43,31 +44,24 @@ public class HomePage extends AbstractPage {
     @FindBy(className = "news-column-index")
     private ExtendedWebElement newsColumn;
 
-    @FindBy(xpath = "//a[@id='login-active']")
-    private ExtendedWebElement loginButton;
-
-    @FindBy(xpath = "//a[@class='signup-icon no-margin-right']")
-    private ExtendedWebElement signUpButton;
+    @FindBy(xpath = "//header[@id='header']")
+    private HeaderItem headerItem;
 
     @FindBy(xpath = "//span[@id='login-popup2']")
     private LoginPopUp loginPopUp;
-
-    public LoginPopUp getLoginPopUp() {
-        return loginPopUp;
-    }
-
-    public void clickLoginButton() {
-        loginButton.click();
-    }
-
-    public ExtendedWebElement getSignUpButton() {
-        return signUpButton;
-    }
 
     public HomePage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(newsColumn);
         setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
+    }
+
+    public HeaderItem getHeaderItem() {
+        return headerItem;
+    }
+
+    public LoginPopUp getLoginPopUp() {
+        return loginPopUp;
     }
 
     public FooterMenu getFooterMenu() {
@@ -89,9 +83,5 @@ public class HomePage extends AbstractPage {
     
     public WeValuePrivacyAd getWeValuePrivacyAd() {
     	return new WeValuePrivacyAd(driver);
-    }
-
-    public boolean isSignUpButtonAvailable() {
-        return signUpButton != null;
     }
 }

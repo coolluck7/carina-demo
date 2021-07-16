@@ -1,10 +1,12 @@
 package com.qaprosoft.carina.demo.gui.components;
 
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.qaprosoft.carina.demo.gui.pages.HomePage;
 
 public class HeaderItem extends AbstractUIObject {
 
@@ -32,8 +34,30 @@ public class HeaderItem extends AbstractUIObject {
     @FindBy(xpath = "//i[@class='head-icon icon-soc-rss2 icomoon-liga']")
     private ExtendedWebElement RssButton;
 
+    @FindBy(xpath = "//a[@id='login-active']")
+    private ExtendedWebElement logInButton;
+
+    @FindBy(xpath = "//a[@class='signup-icon no-margin-right']")
+    private ExtendedWebElement signUpButton;
+
+    @FindBy(xpath = "//i[@class='head-icon icon-user']")
+    private ExtendedWebElement userIconButton;
+
+    @FindBy(xpath = "//i[@class='head-icon icon-signout']")
+    private ExtendedWebElement logOutButton;
+
+    public HeaderItem(WebDriver driver, SearchContext searchContext) {
+        super(driver, searchContext);
+    }
+
     public HeaderItem(WebDriver driver) {
         super(driver);
+    }
+
+
+    public HomePage clickLogInButton() {
+        logInButton.click();
+        return new HomePage(driver);
     }
 
     public boolean isMenuButtonPresent() {
@@ -48,7 +72,7 @@ public class HeaderItem extends AbstractUIObject {
         return tipsButton.isElementPresent();
     }
 
-    public boolean isfacebookButtonPresent() {
+    public boolean isFacebookButtonPresent() {
         return facebookButton.isElementPresent();
     }
 
@@ -66,5 +90,21 @@ public class HeaderItem extends AbstractUIObject {
 
     public boolean isRssButtonPresent() {
         return RssButton.isElementPresent();
+    }
+
+    public boolean isLogInButtonPresent() {
+        return logInButton.isElementPresent();
+    }
+
+    public boolean isSignUpButtonPresent() {
+        return signUpButton.isElementPresent();
+    }
+
+    public boolean isUserIconButtonPresent() {
+        return userIconButton.isElementPresent();
+    }
+
+    public boolean isLogOutButtonPresent() {
+        return logOutButton.isElementPresent();
     }
 }

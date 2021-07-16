@@ -17,6 +17,7 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
+import com.qaprosoft.carina.demo.gui.components.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
@@ -27,10 +28,6 @@ import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
-import com.qaprosoft.carina.demo.gui.components.FooterMenu;
-import com.qaprosoft.carina.demo.gui.components.HeaderItem;
-import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
-import com.qaprosoft.carina.demo.gui.components.NewsItem;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
 import com.qaprosoft.carina.demo.gui.pages.*;
@@ -147,10 +144,31 @@ public class WebSampleTest implements IAbstractTest {
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
 
         HeaderItem headerItem = homePage.getHeaderItem();
-        Assert.assertTrue(headerItem.isLogInButtonPresent(), "Header login button not found!");
+        Assert.assertTrue(headerItem.isUIObjectPresent(), "Header not found!");
         headerItem.clickLogInButton();
         LoginPopUp loginPopUp = homePage.getLoginPopUp();
         Assert.assertTrue(loginPopUp.isLoginButtonPresent(), "Login pop-up login button not found!");
         loginPopUp.loginViaCredentials();
+        Assert.assertTrue(headerItem.isUserIconButtonPresent(), "User icon button not found!");
+    }
+
+    @Test()
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P6)
+    @TestLabel(name = "Task 6", value = {"web", "acceptance"})
+    public void testArticle() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+
+        HeaderItem headerItem = homePage.getHeaderItem();
+        Assert.assertTrue(headerItem.isUIObjectPresent(), "Header not found!");
+        headerItem.clickMenuButton();
+
+        HamburgerMenuItem hamburgerMenuItem = homePage.getHamburgerMenuItem();
+        Assert.assertTrue(hamburgerMenuItem.isUIObjectPresent());
+
+        NewsPage newsPage = hamburgerMenuItem.clickNewsButton();
+        newsPage.searchNews("xiaomi");
     }
 }

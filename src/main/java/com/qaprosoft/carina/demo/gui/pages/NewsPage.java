@@ -45,5 +45,4 @@ public class NewsPage extends AbstractPage {
         searchButton.click();
         return news;
     }
-    
 }

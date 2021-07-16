@@ -54,9 +54,13 @@ public class HeaderItem extends AbstractUIObject {
         super(driver);
     }
 
-
     public HomePage clickLogInButton() {
         logInButton.click();
+        return new HomePage(driver);
+    }
+
+    public HomePage clickMenuButton() {
+        menuButton.click();
         return new HomePage(driver);
     }
 

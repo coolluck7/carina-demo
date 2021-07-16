@@ -17,7 +17,6 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
-import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
@@ -29,6 +28,7 @@ import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
@@ -118,7 +118,29 @@ public class WebSampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P6)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    @TestLabel(name = "Task 2, 4", value = {"web", "acceptance"})
+    public void testHeader() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        HeaderItem headerItem = homePage.getHeaderItem();
+
+        Assert.assertTrue(headerItem.isMenuButtonPresent(), "Menu button not found!");
+        Assert.assertTrue(headerItem.isSearchTextBoxPresent(), "Search text box not found!");
+        Assert.assertTrue(headerItem.isTipsButtonPresent(), "Tips button not found!");
+        Assert.assertTrue(headerItem.isFacebookButtonPresent(), "Facebook button not found!");
+        Assert.assertTrue(headerItem.isTwitterButtonPresent(), "Twitter button not found!");
+        Assert.assertTrue(headerItem.isInstagramButtonPresent(), "Instagram button not found!");
+        Assert.assertTrue(headerItem.isYoutubeButtonPresent(), "Youtube button not found!");
+        Assert.assertTrue(headerItem.isRssButtonPresent(), "RSS button not found!");
+        Assert.assertTrue(headerItem.isLogInButtonPresent(), "Login button not found!");
+        Assert.assertTrue(headerItem.isSignUpButtonPresent(), "Sign up button not found!");
+    }
+
+    @Test()
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P6)
+    @TestLabel(name = "Task 5", value = {"web", "acceptance"})
     public void testLogin() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -130,17 +152,5 @@ public class WebSampleTest implements IAbstractTest {
         LoginPopUp loginPopUp = homePage.getLoginPopUp();
         Assert.assertTrue(loginPopUp.isLoginButtonPresent(), "Login pop-up login button not found!");
         loginPopUp.loginViaCredentials();
-    }
-
-    @Test()
-    @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P6)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
-    public void isSignUpButtonActive() {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        HeaderItem headerItem = homePage.getHeaderItem();
-        Assert.assertTrue(headerItem.isSignUpButtonPresent(), "Sign up button not found!");
     }
 }

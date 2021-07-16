@@ -18,7 +18,6 @@ package com.qaprosoft.carina.demo.gui.pages;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -29,6 +28,7 @@ import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
 import com.qaprosoft.carina.demo.gui.components.WeValuePrivacyAd;
 

@@ -17,7 +17,6 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
-import com.qaprosoft.carina.demo.gui.components.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
@@ -28,9 +27,17 @@ import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
+import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.HamburgerMenuItem;
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
+import com.qaprosoft.carina.demo.gui.components.NewsItem;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
-import com.qaprosoft.carina.demo.gui.pages.*;
+import com.qaprosoft.carina.demo.gui.pages.BrandModelsPage;
+import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
+import com.qaprosoft.carina.demo.gui.pages.HomePage;
+import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
+import com.qaprosoft.carina.demo.gui.pages.NewsPage;
 import com.zebrunner.agent.core.annotation.TestLabel;
 
 /**
@@ -146,9 +153,7 @@ public class WebSampleTest implements IAbstractTest {
         HeaderItem headerItem = homePage.getHeaderItem();
         Assert.assertTrue(headerItem.isUIObjectPresent(), "Header not found!");
         headerItem.clickLogInButton();
-        LoginPopUp loginPopUp = homePage.getLoginPopUp();
-        Assert.assertTrue(loginPopUp.isLoginButtonPresent(), "Login pop-up login button not found!");
-        loginPopUp.loginViaCredentials();
+        homePage.getLoginPopUp().loginViaCredentials();
         Assert.assertTrue(headerItem.isUserIconButtonPresent(), "User icon button not found!");
     }
 
@@ -165,10 +170,13 @@ public class WebSampleTest implements IAbstractTest {
         Assert.assertTrue(headerItem.isUIObjectPresent(), "Header not found!");
         headerItem.clickMenuButton();
 
-        HamburgerMenuItem hamburgerMenuItem = homePage.getHamburgerMenuItem();
-        Assert.assertTrue(hamburgerMenuItem.isUIObjectPresent());
-
-        NewsPage newsPage = hamburgerMenuItem.clickNewsButton();
-        newsPage.searchNews("xiaomi");
+        NewsPage newsPage = homePage.clickNewsButton();
+        Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
+        final String search = "xiaomi";
+        List<NewsItem> news = newsPage.searchNews(search);
+        Assert.assertFalse(CollectionUtils.isEmpty(news), "No news found!");
+        for (NewsItem item : news) {
+            Assert.assertTrue(StringUtils.containsIgnoreCase(item.readTitle(), search), "News invalid!");
+        }
     }
 }

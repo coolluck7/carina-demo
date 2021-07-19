@@ -18,7 +18,6 @@ package com.qaprosoft.carina.demo.gui.pages;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-import com.qaprosoft.carina.demo.gui.components.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -28,6 +27,11 @@ import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.HamburgerMenuItem;
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
+import com.qaprosoft.carina.demo.gui.components.LoginPopUp;
+import com.qaprosoft.carina.demo.gui.components.WeValuePrivacyAd;
 
 public class HomePage extends AbstractPage {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -64,8 +68,9 @@ public class HomePage extends AbstractPage {
         return loginPopUp;
     }
 
-    public HamburgerMenuItem getHamburgerMenuItem() {
-        return hamburgerMenuItem;
+    public NewsPage clickNewsButton() {
+        hamburgerMenuItem.clickNewsButton();
+        return new NewsPage(driver);
     }
 
     public FooterMenu getFooterMenu() {

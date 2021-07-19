@@ -19,9 +19,11 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.demo.gui.components.HamburgerMenuItem;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
 
 public class NewsPage extends AbstractPage {
@@ -34,6 +36,9 @@ public class NewsPage extends AbstractPage {
     
     @FindBy(xpath="//div[@class='news-item']")
     private List<NewsItem> news;
+
+    @FindBy(xpath = "//ul[@id='menu']")
+    private HamburgerMenuItem hamburgerMenuItem;
     
     public NewsPage(WebDriver driver) {
         super(driver);

@@ -1,11 +1,12 @@
 package com.qaprosoft.carina.demo.gui.components;
 
-import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.core.gui.AbstractUIObject;
-import com.qaprosoft.carina.demo.gui.pages.NewsPage;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
+import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.qaprosoft.carina.demo.gui.pages.NewsPage;
 
 public class HamburgerMenuItem extends AbstractUIObject {
 
@@ -47,9 +48,44 @@ public class HamburgerMenuItem extends AbstractUIObject {
         super(driver, searchContext);
     }
 
-    public NewsPage clickNewsButton() {
+    public void clickHomeButton() {
+        homeButton.click();
+    }
+
+    public void clickNewsButton() {
         newsButton.click();
-        return new NewsPage(driver);
+    }
+
+    public void clickReviewsButton() {
+        reviewsButton.click();
+    }
+
+    public void clickVideoButton() {
+        videosButton.click();
+    }
+
+    public void clickFeaturedButton() {
+        featuredButton.click();
+    }
+
+    public void clickPhoneFinderButton() {
+        phoneFinderButton.click();
+    }
+
+    public void clickDealsButton() {
+        dealsButton.click();
+    }
+
+    public void clickToolsButton() {
+        toolsButton.click();
+    }
+
+    public void clickCoverageButton() {
+        coverageButton.click();
+    }
+
+    public void clickContactButton() {
+        contactButton.click();
     }
 
     public boolean isHomeButtonPresent() {

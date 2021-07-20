@@ -6,12 +6,11 @@ import org.openqa.selenium.support.FindBy;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
-import com.qaprosoft.carina.demo.gui.pages.HomePage;
 
 public class HeaderItem extends AbstractUIObject {
 
     @FindBy(xpath = "//button[@class='lines-button minus focused']")
-    private ExtendedWebElement menuButton;
+    private ExtendedWebElement hamburgerMenuButton;
 
     @FindBy(xpath = "//input[@name='sSearch']")
     private ExtendedWebElement searchTextBox;
@@ -54,18 +53,16 @@ public class HeaderItem extends AbstractUIObject {
         super(driver);
     }
 
-    public HomePage clickLogInButton() {
+    public void clickLogInButton() {
         logInButton.click();
-        return new HomePage(driver);
     }
 
-    public HomePage clickMenuButton() {
-        menuButton.click();
-        return new HomePage(driver);
+    public void clickHamburgerMenuButton() {
+        hamburgerMenuButton.click();
     }
 
-    public boolean isMenuButtonPresent() {
-        return menuButton.isElementPresent();
+    public boolean isHamburgerMenuButtonPresent() {
+        return hamburgerMenuButton.isElementPresent();
     }
 
     public boolean isSearchTextBoxPresent() {

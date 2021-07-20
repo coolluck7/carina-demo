@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
-import com.qaprosoft.carina.demo.gui.pages.HomePage;
 
 public class LoginPopUp extends AbstractUIObject {
 
@@ -28,11 +27,10 @@ public class LoginPopUp extends AbstractUIObject {
         super(driver);
     }
 
-    public HomePage loginViaCredentials() {
+    public void loginViaCredentials() {
         userEmailField.type(R.TESTDATA.get("email"));
         userPasswordField.type(R.TESTDATA.get("password"));
         loginButton.click();
-        return new HomePage(driver);
     }
 
     public boolean isUserEmailFieldPresent() {

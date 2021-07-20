@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
@@ -27,24 +26,32 @@ import com.qaprosoft.carina.demo.gui.components.HamburgerMenuItem;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
 
 public class NewsPage extends AbstractPage {
-    
-    @FindBy(className="searchFor")
+
+    @FindBy(className = "searchFor")
     private ExtendedWebElement searchTextField;
-    
-    @FindBy(xpath="//input[@value='Search']")
+
+    @FindBy(xpath = "//input[@value='Search']")
     private ExtendedWebElement searchButton;
-    
-    @FindBy(xpath="//div[@class='news-item']")
+
+    @FindBy(xpath = "//div[@class='news-item']")
     private List<NewsItem> news;
 
     @FindBy(xpath = "//ul[@id='menu']")
     private HamburgerMenuItem hamburgerMenuItem;
-    
+
+    @FindBy(xpath = "(//div[@class='news-item']//h3)[1]")
+    private ExtendedWebElement firstNewsElement;
+
+    public TemporaryPage clickFirstNewsElement() {
+        firstNewsElement.click();
+        return new TemporaryPage(driver);
+    }
+
     public NewsPage(WebDriver driver) {
         super(driver);
         setPageURL("/news.php3");
     }
-    
+
     public List<NewsItem> searchNews(String q) {
         searchTextField.type(q);
         searchButton.click();

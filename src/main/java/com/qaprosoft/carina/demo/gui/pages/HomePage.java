@@ -60,21 +60,24 @@ public class HomePage extends AbstractPage {
         setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
     }
 
-    public HeaderItem getHeaderItem() {
-        return headerItem;
+    public FooterMenu getFooterMenu() {
+        return footerMenu;
     }
 
-    public LoginPopUp getLoginPopUp() {
-        return loginPopUp;
+    public HomePage login() {
+        headerItem.clickLogInButton();
+        loginPopUp.loginViaCredentials();
+        return new HomePage(driver);
+    }
+
+    public HomePage openHamburgerMenu() {
+        headerItem.clickHamburgerMenuButton();
+        return new HomePage(driver);
     }
 
     public NewsPage clickNewsButton() {
         hamburgerMenuItem.clickNewsButton();
         return new NewsPage(driver);
-    }
-
-    public FooterMenu getFooterMenu() {
-        return footerMenu;
     }
 
     public BrandModelsPage selectBrand(String brand) {

@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite verbose="1" name="Carina Demo Tests - Web Sample" parallel="methods">
+    <parameter name="suiteOwner" value="qpsdemo"/>
+    <test name="My verification tests">
+        <classes>
+            <class name="com.qaprosoft.carina.demo.WebSampleTest">
+                <methods>
+                    <include name="Verify Searching process"/>
+                    <include name="Verify Glossary paragraph header and text by first letter"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

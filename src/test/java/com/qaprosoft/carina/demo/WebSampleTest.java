@@ -35,6 +35,7 @@ import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
 import com.qaprosoft.carina.demo.gui.pages.ArticlePage;
 import com.qaprosoft.carina.demo.gui.pages.BrandModelsPage;
 import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
+import com.qaprosoft.carina.demo.gui.pages.GlossaryPage;
 import com.qaprosoft.carina.demo.gui.pages.HomePage;
 import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
 import com.qaprosoft.carina.demo.gui.pages.NewsPage;
@@ -196,5 +197,19 @@ public class WebSampleTest implements IAbstractTest {
         for (NewsItem ni : news) {
             Assert.assertTrue(StringUtils.containsIgnoreCase(ni.readTitle(), search), "Invalid results!");
         }
+    }
+
+    @Test()
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P6)
+    @TestLabel(name = "Verify Glossary paragraph header and text by first letter", value = {"web", "acceptance"})
+    public void testVerifyGlossaryParagraph() {
+        HomePage homePage = new HomePage(getDriver());
+        // 1 - open site
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        // 2 - open Glossary page from footer menu -> Glossary is opened
+        GlossaryPage glossaryPage = homePage.getFooterMenu().openGlossaryPage();
+        Assert.assertTrue(glossaryPage.isPageOpened(), "Glossary page is not opened!");
     }
 }

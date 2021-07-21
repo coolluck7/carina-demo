@@ -5,8 +5,8 @@
         <classes>
             <class name="com.qaprosoft.carina.demo.WebSampleTest">
                 <methods>
-                    <include name="Verify Searching process"/>
-                    <include name="Verify Glossary paragraph header and text by first letter"/>
+                    <include name="testVerifyArticleName"/>
+                    <include name="testVerifySearchingProcess"/>
                 </methods>
             </class>
         </classes>

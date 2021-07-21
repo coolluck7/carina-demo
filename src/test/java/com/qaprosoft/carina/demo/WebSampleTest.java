@@ -170,4 +170,31 @@ public class WebSampleTest implements IAbstractTest {
         // Article name from News page and on the article page the same
         Assert.assertEquals(expectedResult, actualResult, "Invalid results!");
     }
+
+    @Test()
+    @MethodOwner(owner = "qpsdemo")
+    @TestPriority(Priority.P6)
+    @TestLabel(name = "Verify Searching process", value = {"web", "acceptance"})
+    public void testVerifySearchingProcess() {
+        HomePage homePage = new HomePage(getDriver());
+        // 1 - open site
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        // 2 - login with LoginService
+        homePage.login();
+        homePage.openHamburgerMenu();
+        // 3 - open News page from footer menu -> News page is opened
+        NewsPage newsPage = homePage.clickNewsButton();
+        Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
+        // 4 - type text ‘xiaomi’ in search field
+        // 5 - click search btn
+        final String search = "xiaomi";
+        List<NewsItem> news = newsPage.searchNews(search);
+        Assert.assertFalse(CollectionUtils.isEmpty(news), "No news found!");
+        // title on News page equals Results for “ xiaomi”’
+        // all articles contains text ‘ xiaomi’
+        for (NewsItem ni : news) {
+            Assert.assertTrue(StringUtils.containsIgnoreCase(ni.readTitle(), search), "Invalid results!");
+        }
+    }
 }

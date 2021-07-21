@@ -42,9 +42,13 @@ public class NewsPage extends AbstractPage {
     @FindBy(xpath = "(//div[@class='news-item']//h3)[1]")
     private ExtendedWebElement firstNewsElement;
 
-    public TemporaryPage clickFirstNewsElement() {
+    public ArticlePage clickFirstNewsElement() {
         firstNewsElement.click();
-        return new TemporaryPage(driver);
+        return new ArticlePage(driver);
+    }
+
+    public String firstElementTitle() {
+        return firstNewsElement.getElement().getText();
     }
 
     public NewsPage(WebDriver driver) {

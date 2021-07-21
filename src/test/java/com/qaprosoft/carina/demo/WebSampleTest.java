@@ -28,15 +28,16 @@ import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
+import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
+import com.qaprosoft.carina.demo.gui.pages.ArticlePage;
 import com.qaprosoft.carina.demo.gui.pages.BrandModelsPage;
 import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
 import com.qaprosoft.carina.demo.gui.pages.HomePage;
 import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
 import com.qaprosoft.carina.demo.gui.pages.NewsPage;
-import com.qaprosoft.carina.demo.gui.pages.TemporaryPage;
 import com.zebrunner.agent.core.annotation.TestLabel;
 
 /**
@@ -54,10 +55,8 @@ public class WebSampleTest implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-
         //Closing advertising if it's displayed
         homePage.getWeValuePrivacyAd().closeAdIfPresent();
-
         // Select phone brand
         homePage = new HomePage(getDriver());
         BrandModelsPage productsPage = homePage.selectBrand("Samsung");
@@ -102,10 +101,8 @@ public class WebSampleTest implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-
         NewsPage newsPage = homePage.getFooterMenu().openNewsPage();
         Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
-
         final String searchQ = "iphone";
         List<NewsItem> news = newsPage.searchNews(searchQ);
         Assert.assertFalse(CollectionUtils.isEmpty(news), "News not found!");
@@ -121,28 +118,28 @@ public class WebSampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P6)
-    @TestLabel(name = "Task 2, 4", value = {"web", "acceptance"})
+    @TestLabel(name = "Verify header elements", value = {"web", "acceptance"})
     public void testHeader() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-//        HeaderItem headerItem = homePage.getHeaderItem();
-//        Assert.assertTrue(headerItem.isHamburgerMenuButtonPresent(), "Menu button not found!");
-//        Assert.assertTrue(headerItem.isSearchTextBoxPresent(), "Search text box not found!");
-//        Assert.assertTrue(headerItem.isTipsButtonPresent(), "Tips button not found!");
-//        Assert.assertTrue(headerItem.isFacebookButtonPresent(), "Facebook button not found!");
-//        Assert.assertTrue(headerItem.isTwitterButtonPresent(), "Twitter button not found!");
-//        Assert.assertTrue(headerItem.isInstagramButtonPresent(), "Instagram button not found!");
-//        Assert.assertTrue(headerItem.isYoutubeButtonPresent(), "Youtube button not found!");
-//        Assert.assertTrue(headerItem.isRssButtonPresent(), "RSS button not found!");
-//        Assert.assertTrue(headerItem.isLogInButtonPresent(), "Login button not found!");
-//        Assert.assertTrue(headerItem.isSignUpButtonPresent(), "Sign up button not found!");
+        HeaderItem headerItem = new HeaderItem(getDriver());
+        Assert.assertTrue(headerItem.isHamburgerMenuButtonPresent(), "Menu button not found!");
+        Assert.assertTrue(headerItem.isSearchTextBoxPresent(), "Search text box not found!");
+        Assert.assertTrue(headerItem.isTipsButtonPresent(), "Tips button not found!");
+        Assert.assertTrue(headerItem.isFacebookButtonPresent(), "Facebook button not found!");
+        Assert.assertTrue(headerItem.isTwitterButtonPresent(), "Twitter button not found!");
+        Assert.assertTrue(headerItem.isInstagramButtonPresent(), "Instagram button not found!");
+        Assert.assertTrue(headerItem.isYoutubeButtonPresent(), "Youtube button not found!");
+        Assert.assertTrue(headerItem.isRssButtonPresent(), "RSS button not found!");
+        Assert.assertTrue(headerItem.isLogInButtonPresent(), "Login button not found!");
+        Assert.assertTrue(headerItem.isSignUpButtonPresent(), "Sign up button not found!");
     }
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P6)
-    @TestLabel(name = "Task 5", value = {"web", "acceptance"})
+    @TestLabel(name = "Test login", value = {"web", "acceptance"})
     public void testLogin() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -154,24 +151,23 @@ public class WebSampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P6)
-    @TestLabel(name = "Task 6 - Verify Article name", value = {"web", "acceptance"})
-    public void testArticle() {
+    @TestLabel(name = "Verify Article name", value = {"web", "acceptance"})
+    public void testVerifyArticleName() {
         HomePage homePage = new HomePage(getDriver());
+        // 1 - open site
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        // 2 - login with LoginService
         homePage.login();
         homePage.openHamburgerMenu();
+        // 3 - open News page from footer menu or hamburger menu -> News page is opened
         NewsPage newsPage = homePage.clickNewsButton();
         Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
-        final String search = "xiaomi";
-        List<NewsItem> news = newsPage.searchNews(search);
-        String expectedResult = news.get(0).readTitle();
-        Assert.assertFalse(CollectionUtils.isEmpty(news), "No news found!");
-        TemporaryPage temporaryPage = newsPage.clickFirstNewsElement();
-        String actualResult = temporaryPage.readTitle();
-        System.out.println("page url is " + temporaryPage.readPageURL());
-        // doesn't work, pages are different
-//        Assert.assertTrue(temporaryPage.isPageOpened(), "Temporary page is not opened!");
+        // 4 - open first article -> The article page is opened
+        String expectedResult = newsPage.firstElementTitle();
+        ArticlePage articlePage = newsPage.clickFirstNewsElement();
+        String actualResult = articlePage.readTitle();
+        // Article name from News page and on the article page the same
         Assert.assertEquals(expectedResult, actualResult, "Invalid results!");
     }
 }

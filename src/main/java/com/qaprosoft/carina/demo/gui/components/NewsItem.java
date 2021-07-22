@@ -21,17 +21,23 @@ import org.openqa.selenium.support.FindBy;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.qaprosoft.carina.demo.gui.pages.ArticlePage;
 
 public class NewsItem extends AbstractUIObject {
 
     @FindBy(xpath = "./a")
-    public ExtendedWebElement titleLink;
+    public ExtendedWebElement articleItem;
 
     public NewsItem(WebDriver driver, SearchContext sc) {
         super(driver, sc);
     }
 
+    public ArticlePage clickArticleItem() {
+        articleItem.click();
+        return new ArticlePage(driver);
+    }
+
     public String readTitle() {
-        return titleLink.getText();
+        return articleItem.getText();
     }
 }

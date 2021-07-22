@@ -64,6 +64,10 @@ public class HomePage extends AbstractPage {
         return footerMenu;
     }
 
+    public HeaderItem getHeaderItem() {
+        return headerItem;
+    }
+
     public HomePage login() {
         headerItem.clickLogInButton();
         loginPopUp.loginViaCredentials();

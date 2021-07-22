@@ -39,16 +39,13 @@ public class NewsPage extends AbstractPage {
     @FindBy(xpath = "//ul[@id='menu']")
     private HamburgerMenuItem hamburgerMenuItem;
 
-    @FindBy(xpath = "(//div[@class='news-item']//h3)[1]")
-    private ExtendedWebElement firstNewsElement;
-
-    public ArticlePage clickFirstNewsElement() {
-        firstNewsElement.click();
+    public ArticlePage clickNewsArticleByNumber(int elementNumber) {
+        news.get(elementNumber).clickArticleItem();
         return new ArticlePage(driver);
     }
 
-    public String firstElementTitle() {
-        return firstNewsElement.getElement().getText();
+    public String getArticleTitleByNumber(int elementNumber) {
+        return news.get(elementNumber).readTitle();
     }
 
     public NewsPage(WebDriver driver) {

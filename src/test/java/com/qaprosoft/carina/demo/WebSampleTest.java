@@ -15,6 +15,7 @@
  */
 package com.qaprosoft.carina.demo;
 
+
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -25,8 +26,6 @@ import org.testng.asserts.SoftAssert;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
-import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
-import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
 import com.qaprosoft.carina.demo.gui.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.components.HeaderItem;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
@@ -49,21 +48,15 @@ import com.zebrunner.agent.core.annotation.TestLabel;
 public class WebSampleTest implements IAbstractTest {
     @Test()
     @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P3)
-    @TestLabel(name = "feature", value = {"web", "regression"})
+    @TestLabel(name = "default", value = {"web", "regression"})
     public void testModelSpecs() {
-        // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-        //Closing advertising if it's displayed
         homePage.getWeValuePrivacyAd().closeAdIfPresent();
-        // Select phone brand
         homePage = new HomePage(getDriver());
         BrandModelsPage productsPage = homePage.selectBrand("Samsung");
-        // Select phone model
         ModelInfoPage productInfoPage = productsPage.selectModel("Galaxy A52 5G");
-        // Verify phone specifications
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(productInfoPage.readDisplay(), "6.5\"", "Invalid display info!");
         softAssert.assertEquals(productInfoPage.readCamera(), "64MP", "Invalid camera info!");
@@ -74,20 +67,15 @@ public class WebSampleTest implements IAbstractTest {
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P1)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    @TestLabel(name = "default", value = {"web", "acceptance"})
     public void testCompareModels() {
-        // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-        // Open model compare page
         FooterMenu footerMenu = homePage.getFooterMenu();
         Assert.assertTrue(footerMenu.isUIObjectPresent(2), "Footer menu wasn't found!");
         CompareModelsPage comparePage = footerMenu.openComparePage();
-        // Compare 3 models
         List<ModelSpecs> specs = comparePage.compareModels("Samsung Galaxy J3", "Samsung Galaxy J5", "Samsung Galaxy J7 Pro");
-        // Verify model announced dates
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(specs.get(0).readSpec(SpecType.ANNOUNCED), "2016, March 31. Released 2016, May 06");
         softAssert.assertEquals(specs.get(1).readSpec(SpecType.ANNOUNCED), "2015, June 19. Released 2015, July 28");
@@ -97,7 +85,7 @@ public class WebSampleTest implements IAbstractTest {
 
     @Test()
     @MethodOwner(owner = "qpsdemo")
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    @TestLabel(name = "default", value = {"web", "acceptance"})
     public void testNewsSearch() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -117,10 +105,28 @@ public class WebSampleTest implements IAbstractTest {
     }
 
     @Test()
-    @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P6)
-    @TestLabel(name = "Verify header elements", value = {"web", "acceptance"})
-    public void testHeader() {
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 1 - Verify Login page", value = {"web", "acceptance"})
+    public void testVerifyLoginPage() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+    }
+
+    @Test()
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 2 - Verify Sign Up button isn't active", value = {"web", "acceptance"})
+    public void testVerifySignUpButton() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        Assert.assertTrue(homePage.getHeaderItem().isSignUpButtonPresent(), "Sign Up button isn't present!");
+    }
+
+    @Test()
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 4 - Verify header elements", value = {"web", "acceptance"})
+    public void testVerifyHeaderElements() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
@@ -138,78 +144,74 @@ public class WebSampleTest implements IAbstractTest {
     }
 
     @Test()
-    @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P6)
-    @TestLabel(name = "Test login", value = {"web", "acceptance"})
-    public void testLogin() {
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 5 - Verify login feature", value = {"web", "acceptance"})
+    public void testVerifyLoginFeature() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        homePage.openHamburgerMenu();
         homePage.login();
+        pause(3);
+        Assert.assertTrue(homePage.getHeaderItem().isUserIconButtonPresent(), "User icon is not found!");
     }
 
     @Test()
-    @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P6)
-    @TestLabel(name = "Verify Article name", value = {"web", "acceptance"})
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 6 - Verify Article name", value = {"web", "acceptance"})
     public void testVerifyArticleName() {
         HomePage homePage = new HomePage(getDriver());
-        // 1 - open site
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        // 2 - login with LoginService
         homePage.login();
         homePage.openHamburgerMenu();
-        // 3 - open News page from footer menu or hamburger menu -> News page is opened
         NewsPage newsPage = homePage.clickNewsButton();
         Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
-        // 4 - open first article -> The article page is opened
-        String expectedResult = newsPage.firstElementTitle();
-        ArticlePage articlePage = newsPage.clickFirstNewsElement();
+        String expectedResult = newsPage.getArticleTitleByNumber(0);
+        ArticlePage articlePage = newsPage.clickNewsArticleByNumber(0);
         String actualResult = articlePage.readTitle();
-        // Article name from News page and on the article page the same
-        Assert.assertEquals(expectedResult, actualResult, "Invalid results!");
+        Assert.assertEquals(expectedResult, actualResult, "Expected result is " + expectedResult + ", actual result is " + actualResult + ". Article name is not the same as its' name in the news column!");
     }
 
     @Test()
-    @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P6)
-    @TestLabel(name = "Verify Searching process", value = {"web", "acceptance"})
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 7 - Verify Searching process", value = {"web", "acceptance"})
     public void testVerifySearchingProcess() {
         HomePage homePage = new HomePage(getDriver());
-        // 1 - open site
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        // 2 - login with LoginService
         homePage.login();
         homePage.openHamburgerMenu();
-        // 3 - open News page from footer menu -> News page is opened
         NewsPage newsPage = homePage.clickNewsButton();
         Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
-        // 4 - type text ‘xiaomi’ in search field
-        // 5 - click search btn
-        final String search = "xiaomi";
+        String search = "xiaomi";
         List<NewsItem> news = newsPage.searchNews(search);
         Assert.assertFalse(CollectionUtils.isEmpty(news), "No news found!");
-        // title on News page equals Results for “ xiaomi”’
-        // all articles contains text ‘ xiaomi’
-        for (NewsItem ni : news) {
-            Assert.assertTrue(StringUtils.containsIgnoreCase(ni.readTitle(), search), "Invalid results!");
+        for (NewsItem newsItem : news) {
+            Assert.assertTrue(StringUtils.containsIgnoreCase(newsItem.readTitle(), search), "News have no searching word!");
         }
     }
 
     @Test()
-    @MethodOwner(owner = "qpsdemo")
-    @TestPriority(Priority.P6)
-    @TestLabel(name = "Verify Glossary paragraph header and text by first letter", value = {"web", "acceptance"})
-    public void testVerifyGlossaryParagraph() {
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 8 - Verify Glossary paragraph header and text by first letter", value = {"web", "acceptance"})
+    public void testVerifyGlossaryParagraphHeader() {
         HomePage homePage = new HomePage(getDriver());
-        // 1 - open site
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
-        // 2 - open Glossary page from footer menu -> Glossary is opened
         GlossaryPage glossaryPage = homePage.getFooterMenu().openGlossaryPage();
         Assert.assertTrue(glossaryPage.isPageOpened(), "Glossary page is not opened!");
+        Assert.assertTrue(glossaryPage.compareParagraphNamesWithParagraphItems(), "Paragraph symbols don't compare to the text first letters!");
+    }
+
+    @Test()
+    @MethodOwner(owner = "vsemak")
+    @TestLabel(name = "task 9 - Verify Glossary paragraph text by alphabet", value = {"web", "acceptance"})
+    public void testVerifyGlossaryParagraphTextByAlphabet() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        GlossaryPage glossaryPage = homePage.getFooterMenu().openGlossaryPage();
+        Assert.assertTrue(glossaryPage.isPageOpened(), "Glossary page is not opened!");
+        Assert.assertTrue(glossaryPage.isAlphabetCorrect(), "Alphabet in the paragraph is incorrect!");
     }
 }
